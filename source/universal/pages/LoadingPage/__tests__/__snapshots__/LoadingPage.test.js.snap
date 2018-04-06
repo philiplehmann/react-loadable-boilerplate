@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingPage - snapshot test 1`] = `
+<section
+  className="Page-s1tu64uk-0 dhQURF"
+>
+  <section
+    className="Center-s1591g59-0 fxlYbf"
+  >
+    <span
+      className="Text-s4x4i9j-0 coPFDn"
+      fontSize="10vw"
+    >
+      Loading...
+    </span>
+  </section>
+</section>
+`;
