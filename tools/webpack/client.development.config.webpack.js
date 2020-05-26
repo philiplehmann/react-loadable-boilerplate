@@ -26,8 +26,7 @@ const webpackClientConfig = {
             'react-loadable/babel',
             'react-hot-loader/babel',
             ['babel-plugin-styled-components', { ssr: true }],
-          ],
-          presets: [['env', { modules: false }], 'flow', 'react', 'stage-0'],
+          ]
         },
       },
       {

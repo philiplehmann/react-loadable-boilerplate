@@ -41,7 +41,6 @@ export const serverSideRender = ({
       reactLoadableModules,
       reactLoadableStats,
       routerContext,
-      styleSheet,
     }
 
     const element = <Html {...props} />

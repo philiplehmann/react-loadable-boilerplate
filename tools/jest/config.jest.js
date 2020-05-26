@@ -16,8 +16,7 @@ const jestConfig = {
   rootDir: '../../',
 
   setupFiles: [
-    'babel-polyfill',
-    'raf/polyfill',
+    'core-js/stable',
     './tools/jest/__setup__/setup.jest.js',
   ],
 

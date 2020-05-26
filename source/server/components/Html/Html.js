@@ -4,12 +4,28 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { HelmetProvider } from 'react-helmet-async'
 import { StaticRouter } from 'react-router-dom'
-import { injectGlobal } from 'styled-components'
+import { createGlobalStyle, ServerStyleSheet } from 'styled-components'
 import { normalize } from 'polished'
 import { Capture } from 'react-loadable'
 import { getBundles } from 'react-loadable/webpack'
 
 import faviconUrl from 'server/components/Html/images/favicon.ico'
+
+const GlobalNormalizeStyle = createGlobalStyle`${normalize()}`
+
+const GlobalSizeStyle = createGlobalStyle`
+  html, body, #${process.env.REACT_CONTAINER_ID} {
+    height: 100%;
+    background-color: black important;
+
+    margin: 0;
+
+    padding: 0;
+
+    width: 100%;
+  }
+`
+console.log(GlobalNormalizeStyle)
 
 export const Html = ({
   App,
@@ -19,7 +35,6 @@ export const Html = ({
   reactLoadableModules,
   reactLoadableStats,
   routerContext,
-  styleSheet,
 }: {
   App?: React$ComponentType<*>,
   clientStats?: *,
@@ -32,6 +47,7 @@ export const Html = ({
   routerContext?: *,
   styleSheet?: *,
 }) => {
+  const styleSheet = new ServerStyleSheet()
   try {
     if (App == undefined) return null
     if (clientStats == undefined) return null
@@ -40,22 +56,7 @@ export const Html = ({
     if (reactLoadableModules == undefined) return null
     if (reactLoadableStats == undefined) return null
     if (routerContext == undefined) return null
-    if (styleSheet == undefined) return null
-
-    injectGlobal`${normalize()}`
-
-    injectGlobal`
-      html, body, #${process.env.REACT_CONTAINER_ID} {
-        height: 100%;
-  
-        margin: 0;
-  
-        padding: 0;
-  
-        width: 100%;
-      }
-    `
-
+    
     const __html = renderToString(
       styleSheet.collectStyles(
         <Capture report={m => reactLoadableModules.push(m)}>
@@ -118,6 +119,8 @@ export const Html = ({
           ))}
         </head>
         <body {...bodyAttributes}>
+          <GlobalNormalizeStyle/>
+          <GlobalSizeStyle/>
           <div
             id={process.env.REACT_CONTAINER_ID}
             dangerouslySetInnerHTML={{ __html }}
@@ -130,7 +133,10 @@ export const Html = ({
       </html>
     )
   } catch (error) {
+    console.log(error)
     return null
+  } finally {
+    styleSheet.seal()
   }
 }
 

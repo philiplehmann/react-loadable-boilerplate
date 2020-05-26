@@ -4,8 +4,8 @@ if (!process.env.SERVER_HOST) process.env.SERVER_HOST = 'localhost'
 if (!process.env.SERVER_PORT) process.env.SERVER_PORT = 8888
 
 /* polyfills */
-require('babel-polyfill')
-require('raf/polyfill')
+require("core-js/stable");
+require("regenerator-runtime/runtime");
 
 const express = require('express')
 
