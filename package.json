@@ -72,6 +72,10 @@
     "webpack-hot-middleware": "^2.25.0",
     "webpack-hot-server-middleware": "^0.6.1"
   },
+  "resolutions": {
+    "serialize-javascript": ">=3.1.0",
+    "braces": ">=2.3.1"
+  },
   "scripts": {
     "--TOOLS--": "",
     "test": "yarn run jest",
